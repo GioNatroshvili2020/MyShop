@@ -5,10 +5,11 @@ using System.Linq;
 using System.Runtime.Caching;
 using System.Text;
 using System.Threading.Tasks;
+using MyShop.core.Contracts;
 
 namespace MyShop.DataAccess.InMemory
 {
-    public class InMemoryRepository<T> where T : BaseEntity
+    public class InMemoryRepository<T> : IRepository<T> where T : BaseEntity
     {
         ObjectCache cache = MemoryCache.Default;
         List<T> items;
@@ -19,7 +20,7 @@ namespace MyShop.DataAccess.InMemory
             className = typeof(T).Name;
             items = cache[className] as List<T>;
 
-            if(items == null)
+            if (items == null)
             {
                 items = new List<T>();
             }
@@ -38,19 +39,19 @@ namespace MyShop.DataAccess.InMemory
 
         public void Update(T item)
         {
-            T itemToUpdate= items.Find(p => p.Id == item.Id);
+            T itemToUpdate = items.Find(p => p.Id == item.Id);
 
             if (itemToUpdate != null)
             {
-                itemToUpdate= item; //Does This Actually Work?
+                itemToUpdate = item; //Does This Actually Work?
             }
             else
             {
-                throw new Exception(className+" Not Found");
+                throw new Exception(className + " Not Found");
             }
 
         }
-        
+
         public T Find(String Id)
         {
             T item = items.Find(p => p.Id == Id);

@@ -5,14 +5,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MyShop.core.Contracts;
 
 namespace MyShop.WebUI.Controllers
 {
     public class ProductCategoryController : Controller
     {
-        InMemoryRepository<ProductCategory> context;
+        IRepository<ProductCategory> context;
 
-        public ProductCategoryController()
+        public ProductCategoryController(IRepository<ProductCategory>  IContext)
         {
             context = new InMemoryRepository<ProductCategory>();
 
