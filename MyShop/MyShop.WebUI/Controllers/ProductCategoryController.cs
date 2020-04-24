@@ -15,7 +15,7 @@ namespace MyShop.WebUI.Controllers
 
         public ProductCategoryController(IRepository<ProductCategory>  IContext)
         {
-            context = new InMemoryRepository<ProductCategory>();
+            context = IContext;
 
         }
 
